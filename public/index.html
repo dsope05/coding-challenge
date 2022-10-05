@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="./script/camera.js"> </script>
 <style>
     body {font-family: "Lato", sans-serif}
 </style>
@@ -99,7 +100,7 @@
 
 
     <!-- The Photos Section -->
-    <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="photos">
+    <div class="w3-container w3-content w3-padding-64" style="max-width:800px; height:600px" id="photos">
         <h2 class="w3-wide w3-center">PHOTOS</h2>  
         <div class="w3-center">
             <div class="photos">
@@ -167,12 +168,29 @@ const rotatePhotos = () => {
         }
     }
     currentPhoto++;
-    if (currentPhoto > photos.length) {
+    if (currentPhoto >= photos.length) {
         currentPhoto = 0;
     }
     setTimeout(rotatePhotos, 2000);
 };
 rotatePhotos();
+
+const implementVideo = async () => {
+    const htmlElement = document.getElementById('video-element'); 
+    htmlElement.innerText = '';
+    const stream = await CameraAPI.getCamera();
+    const invertedStream = CameraAPI.invertColours(stream);
+    CameraAPI.setStreamToElement(htmlElement, invertedStream);
+}
+implementVideo();
+
+
+
+/* MY CHANGES: 
+    Part 1 Vanishing Photos fix: line 171: removed > and added >=
+    Part 2 Moving Footer fix: line 103: added height: 600px to div style
+    Part 3 Implement Video: line 178 - 186
+*/
 </script>
 
 </body> 
